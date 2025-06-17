@@ -1,20 +1,51 @@
 {
   "name": "MCP Memory Palace",
-  "version": "0.2.0",
-  "description": "Modular memory interface for context-aware agents. Portable, auditable, and semantically organized.",
+  "version": "0.2.1",
+  "description": "Context-aware long-term memory module for agents and humans. Portable, auditable, dockerized, and MCP-compliant.",
+  "mcp_compliance": true,
   "entrypoints": {
-    "observe": "/observe",
-    "memorize": "/memorize",
-    "recall": "/recall",
-    "suggest": "/suggest",
-    "focus": "/focus",
-    "thread": "/thread",
-    "plasticity": "/plasticity"
+    "observe": {
+      "method": "POST",
+      "path": "/observe",
+      "description": "Evaluates semantic input and stores it if relevant."
+    },
+    "memorize": {
+      "method": "POST",
+      "path": "/memorize",
+      "description": "Directly commits information to long-term memory."
+    },
+    "recall": {
+      "method": "GET",
+      "path": "/recall",
+      "description": "Retrieves memory entries by topic or keyword."
+    },
+    "suggest": {
+      "method": "GET",
+      "path": "/suggest",
+      "description": "Returns likely relevant entries based on semantic trigger."
+    },
+    "focus": {
+      "method": "POST",
+      "path": "/focus",
+      "description": "Sets or shifts mental focus to a specific topic."
+    },
+    "thread": {
+      "method": "POST",
+      "path": "/thread",
+      "description": "Adds a contextual mental note to the active thread."
+    },
+    "plasticity": {
+      "method": "POST",
+      "path": "/plasticity",
+      "description": "Creates or adapts structure when memory pressure or topic fragmentation is detected."
+    }
   },
   "languages": ["en", "de"],
   "focus_management": true,
   "adaptive_structures": true,
-  "license": "MIT",
+  "docker_ready": true,
+  "docker_image": "memory-palace",
+  "recommended_hosting": "Docker Desktop MCP Extension",
   "author": "Sebastian Kr?smann",
-  "mcp_compliance": true
+  "license": "MIT"
 }
