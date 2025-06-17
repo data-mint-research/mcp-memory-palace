@@ -1,0 +1,18 @@
+# ==============================================================================
+# File:             requirements.txt
+# Purpose:          Python dependencies for Memory Palace MCP server
+# Author:           skr
+# Owner:            MINT-RESEARCH / NeoMINT GmbH
+# Contact:          mint-research@neomint.com
+# License:          MIT / ? NeoMINT GmbH 2025
+# Created:          2025-06-17
+# Last Modified:    2025-06-17 by skr
+# Status:           Stable
+# Tags:             dependencies, requirements, python
+# ==============================================================================
+
+# MCP Framework
+mcp>=1.0.0
+
+# Standard library extensions
+python-dotenv>=1.0.0
