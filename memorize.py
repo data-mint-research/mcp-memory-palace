@@ -3,8 +3,8 @@
 import os
 import json
 from datetime import datetime
-from .config import get_config
-from .utils import ensure_dir
+from config import get_config
+from utils import ensure_dir
 
 def memorize(input_data: dict):
     config = get_config()
