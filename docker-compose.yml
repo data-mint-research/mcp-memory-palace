@@ -1,0 +1,63 @@
+# ==============================================================================
+# File:             docker-compose.yml
+# Purpose:          Root Docker Compose for MINT-MCP ecosystem
+# Author:           skr
+# Owner:            MINT-RESEARCH / NeoMINT GmbH
+# Contact:          mint-research@neomint.com
+# License:          MIT / ? NeoMINT GmbH 2025
+# Created:          2025-06-17
+# Last Modified:    2025-06-17 by skr
+# Status:           Stable
+# Tags:             docker-compose, orchestration, ecosystem
+# ==============================================================================
+
+version: '3.8'
+
+services:
+  memory-palace:
+    build:
+      context: ./servers/memory-palace
+      dockerfile: docker/Dockerfile
+    image: mint-mcp/memory-palace:latest
+    container_name: mint-memory-palace
+    environment:
+      - MEMORY_PATH=/data/brain.fs
+    volumes:
+      - memory-data:/data
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+    networks:
+      - mint-network
+    labels:
+      - "com.neomint.service=memory-palace"
+      - "com.neomint.project=mint-mcp"
+      - "com.neomint.version=2.0.0"
+
+  # Future services
+  # mint-registrar:
+  #   build:
+  #     context: ./servers/mint-registrar
+  #     dockerfile: docker/Dockerfile
+  #   image: mint-mcp/mint-registrar:latest
+  #   container_name: mint-registrar
+  #   networks:
+  #     - mint-network
+
+  # template-server:
+  #   build:
+  #     context: ./servers/template-server
+  #     dockerfile: docker/Dockerfile
+  #   image: mint-mcp/template-server:latest
+  #   container_name: mint-template-server
+  #   networks:
+  #     - mint-network
+
+volumes:
+  memory-data:
+    name: mint-memory-palace-data
+
+networks:
+  mint-network:
+    name: mint-mcp-network
+    driver: bridge
