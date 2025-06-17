@@ -1,0 +1,15 @@
+# ==============================================================================
+# File:             requirements.txt
+# Purpose:          Python dependencies for MINT Memory Palace
+# Author:           skr
+# Owner:            MINT-RESEARCH / NeoMINT GmbH
+# Contact:          mint-research@neomint.com
+# License:          MIT / ? NeoMINT GmbH 2025
+# Created:          2025-06-17
+# Last Modified:    2025-06-17 by skr
+# Status:           Stable
+# Tags:             dependencies, python, requirements
+# ==============================================================================
+
+mcp>=1.0.0
+pydantic>=2.0.0
