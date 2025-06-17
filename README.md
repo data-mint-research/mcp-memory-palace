@@ -47,6 +47,36 @@ These commands will:
 
 ---
 
+## ? MCP Hosting via Docker Desktop (MCP Extension)
+
+This project is fully compatible with the Docker Desktop MCP Extension  
+(available via the Docker Marketplace or `docker extension install`).
+
+To make this memory module discoverable by agents like Claude:
+
+1. Open Docker Desktop
+2. Go to: **Extensions > Model Context Protocol (MCP)**
+3. Click "Add Local MCP Component"
+4. Choose the project directory:
+   ```
+   ~/path/to/mcp-memory-palace/
+   ```
+5. Confirm and start the container
+
+Once registered, Claude or other tools can access the API via:
+
+```json
+{
+  "tool": "recall",
+  "input": { "topic": "example" }
+}
+```
+
+> Note: You may need to expose your endpoint via `ngrok`, `cloudflared`, or `fly.io`  
+> for remote access beyond your local machine.
+
+---
+
 ## Compliance
 
 - `.well-known/mcp-memory-palace.json` describes system capabilities
