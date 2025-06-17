@@ -1,152 +1,148 @@
-# MCP Memory Palace
+# MINT-MCP
 
-A modular, context-aware long-term memory module for humans and intelligent agents.  
-Compliant with the Anthropic Model Context Protocol (MCP).
+Multi-Server Model Context Protocol Architecture
 
----
+## Overview
 
-## ? One-Line Quickstart
+MINT-MCP provides a modular, enterprise-ready platform for deploying and managing multiple MCP servers. Built with professional standards for clarity, maintainability, and auditability.
 
-### ? PowerShell (Windows):
+## Quick Start
+
+### One-Line Installation
 ```powershell
-irm https://raw.githubusercontent.com/data-mint-research/mcp-memory-palace/main/bootstrap.ps1 | iex
+./run.ps1
 ```
 
-### ? Bash/macOS:
-```bash
-bash <(curl -s https://raw.githubusercontent.com/data-mint-research/mcp-memory-palace/main/bootstrap.sh)
+### Requirements
+
+- Windows 11 Pro or compatible system
+- PowerShell 5.1 or later
+- Internet connection
+
+All dependencies are automatically detected and installed.
+
+## Architecture
+
+MINT-MCP implements a clean, modular architecture:
+
+```
+MINT-MCP Ecosystem
+??? Memory Palace     Advanced memory system (Production Ready)
+??? MINT Registrar    Server orchestration (Coming Soon)
+??? Template Server   Development templates (Coming Soon)
 ```
 
-These commands will:
-- Clone the repository if needed
-- Build the Docker image  
-- Launch the container with file-based memory
+## Servers
 
----
+### Memory Palace
 
-## Features
+Context-aware long-term memory system with plasticity and semantic recall.
+
+**Features**
 
 - Passive observation with relevance evaluation
-- Flatfile-based memory with audit trails
-- Language-sensitive trigger structure (DE/EN)
-- Recall by topic with soft pattern match
-- Cortex for mental focus and threading
-- Plasticity for adaptive structure creation
+- Persistent file-based storage with audit trails
+- Multi-language support (German/English)
+- Semantic recall with soft pattern matching
+- Cortex threading for mental focus
+- Adaptive plasticity for structure creation
 
----
+**Status**: Production Ready  
+**Documentation**: [docs/servers/memory-palace.md](docs/servers/memory-palace.md)
 
-## API
+### MINT Registrar
 
-- `POST /observe` ? evaluate & optionally store input
-- `POST /memorize` ? directly write to memory
-- `GET  /recall?topic=XYZ` ? retrieve related memories
-- `GET  /suggest?trigger=XYZ` ? suggest entries
-- `POST /focus?topic=XYZ` ? set new thought focus
-- `POST /thread?note=XYZ` ? add a mental thread
-- `POST /plasticity?reason=XYZ` ? initiate adaptive structure
+Git-based MCP server orchestration and deployment system.
 
----
+**Purpose**: Deploy and manage custom MCP servers from company repositories  
+**Status**: Coming Soon
 
-## ? MCP Hosting via Docker Desktop (MCP Extension)
+### Template Server
 
-This project is fully compatible with the Docker Desktop MCP Extension  
-(available via the Docker Marketplace or `docker extension install`).
+Template system for rapid MCP server development.
 
-To make this memory module discoverable by agents like Claude:
+**Purpose**: Standardized templates for consistent server creation  
+**Status**: Coming Soon
 
-1. Open Docker Desktop
-2. Go to: **Extensions > Model Context Protocol (MCP)**
-3. Click "Add Local MCP Component"
-4. Choose the project directory:
-   ```
-   ~/path/to/mcp-memory-palace/
-   ```
-5. Confirm and start the container
+## Documentation
 
-Once registered, Claude or other tools can access the API via:
+- [Usage Guide](docs/usage.md) - Complete usage instructions
+- [Architecture Overview](docs/architecture.md) - Technical architecture
+- [Development Guide](docs/development.md) - Development setup and guidelines
+- [Security Documentation](docs/security.md) - Security policies and practices
+
+## Client Integration
+
+### Claude Desktop
 
 ```json
 {
-  "tool": "recall",
-  "input": { "topic": "example" }
+  "mcpServers": {
+    "mint-memory-palace": {
+      "command": "python",
+      "args": ["C:/path/to/mint-mcp/servers/memory-palace/main.py"],
+      "env": {
+        "MEMORY_PATH": "C:/path/to/mint-mcp/servers/memory-palace/brain.fs"
+      }
+    }
+  }
 }
 ```
 
-> Note: You may need to expose your endpoint via `ngrok`, `cloudflared`, or `fly.io`  
-> for remote access beyond your local machine.
-
----
-
-## Compliance
-
-- `.well-known/mcp-memory-palace.json` describes system capabilities
-- Configuration: `./config/config.yaml`
-
----
-
-## ? Bootstrap Instructions (PowerShell + Bash)
-
-To launch the MCP Memory Palace module in a safe and reproducible way:
-
----
-
-### ? PowerShell (Windows)
-
-```powershell
-irm https://raw.githubusercontent.com/data-mint-research/mcp-memory-palace/main/bootstrap.ps1 | iex
-```
-
-* Clones the repo if needed
-* Builds the Docker image
-* Starts the container **only if not already running**
-* All memory is stored in `./brain.fs/`, mounted via `-v`
-
-### ? Bash/macOS/Linux
+### Claude Code
 
 ```bash
-bash <(curl -s https://raw.githubusercontent.com/data-mint-research/mcp-memory-palace/main/bootstrap.sh)
+claude --mcp-config config/mint-mcp.json \
+       --allowedTools "mcp__mint-memory-palace__*"
 ```
 
-* Same behavior as above
-* Keeps memory persistent across container restarts
-
-### ? Data Safety
-
-All memory, state and audit logs are stored in:
-
-```
-./brain.fs/
-??? memory/
-??? audit/
-??? index/
-??? state.json
-```
-
-As long as this directory is mounted (via `-v`), data will not be lost ? even if the container is removed or restarted.
-
-### ? Optional Manual Start
-
-You can also start or restart the container manually:
+### Docker
 
 ```bash
-docker start memory-palace
-docker stop memory-palace
+docker run -d --name mint-mcp-memory-palace \
+  -v "./brain.fs:/app/brain.fs" \
+  mint-mcp/memory-palace:latest
 ```
 
-To clean up:
+## Development
+
+### Getting Started
 
 ```bash
-docker rm memory-palace
+git clone https://github.com/data-mint-research/mint-mcp.git
+cd mint-mcp
+./run.ps1 -Mode install
 ```
 
-Be aware: this only deletes the container, **not** the memory.
+### Structure
 
----
+```
+mint-mcp/
+??? servers/           MCP server implementations
+??? shared/            Common utilities and configurations
+??? docs/              Documentation
+??? .github/           GitHub workflows and templates
+??? .well-known/       Machine-readable metadata
+```
+
+### Contributing
+
+1. Read [Development Guide](docs/development.md)
+2. Follow UX/UI standards for all contributions
+3. Ensure automated validation passes
+4. Submit pull request with proper template
+
+## Support
+
+- **Issues**: [GitHub Issues](https://github.com/data-mint-research/mint-mcp/issues)
+- **Documentation**: [docs/](docs/)
+- **Security**: [security.md](docs/security.md)
+- **Contact**: mint-research@neomint.com
 
 ## Legal
 
-- Author: skr  
-- Copyright: NeoMINT GmbH 2025  
-- Owner: MINT-RESEARCH  
-- Contact: mint-research@neomint.com  
-- License: [MIT](./LICENSE)
+- **Author**: skr
+- **Copyright**: NeoMINT GmbH 2025
+- **Owner**: MINT-RESEARCH
+- **Contact**: mint-research@neomint.com
+- **License**: MIT
