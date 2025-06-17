@@ -3,8 +3,8 @@
 import os
 import json
 from datetime import datetime
-from .config import get_config
-from .utils import write_audit_log
+from config import get_config
+from utils import write_audit_log
 
 def suggest(trigger: str):
     """
