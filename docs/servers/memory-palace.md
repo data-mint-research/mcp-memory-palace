@@ -171,7 +171,7 @@ brain.fs/
 ### Environment Variables
 
 | Variable | Description | Default |
-|----------|-------------|---------||
+|----------|-------------|---------|
 | MEMORY_PATH | Path to memory storage | ~/.mint-mcp/memory-palace/brain.fs |
 
 ### Custom Configuration
