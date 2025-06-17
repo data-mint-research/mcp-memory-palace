@@ -1,0 +1,47 @@
+# ==============================================================================
+# File:             config.yaml
+# Purpose:          Configuration for MINT Memory Palace server
+# Author:           skr
+# Owner:            MINT-RESEARCH / NeoMINT GmbH
+# Contact:          mint-research@neomint.com
+# License:          MIT / ? NeoMINT GmbH 2025
+# Created:          2025-06-17
+# Last Modified:    2025-06-17 by skr
+# Status:           Stable
+# Tags:             configuration, memory-palace, settings
+# ==============================================================================
+
+server:
+  name: "memory-palace"
+  version: "2.0.0"
+  description: "Advanced context-aware memory system with plasticity"
+  
+memory:
+  storage_path: "./brain.fs"
+  backup_enabled: false
+  max_memory_size: 100000  # Max memories before cleanup
+  
+relevance:
+  min_length: 10  # Minimum interaction length to store
+  keywords:  # Keywords that increase relevance
+    - "important"
+    - "remember"
+    - "note"
+    
+cortex:
+  max_threads: 100  # Maximum cortex threads
+  thread_timeout: 86400  # Seconds before thread expires (24h)
+  
+logging:
+  level: "INFO"
+  file: "memory-palace.log"
+  
+mcp:
+  transport: ["stdio", "sse"]
+  tools:
+    - "memory_observe"
+    - "memory_recall"
+    - "memory_focus"
+    - "memory_thread"
+    - "memory_plasticity"
+    - "memory_suggest"
