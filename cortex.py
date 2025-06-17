@@ -3,8 +3,8 @@
 import json
 import os
 from datetime import datetime
-from .utils import ensure_dir, write_audit_log
-from .config import get_config
+from utils import ensure_dir, write_audit_log
+from config import get_config
 
 STATE_PATH = "brain.fs/state.json"
 
