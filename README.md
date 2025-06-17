@@ -84,6 +84,65 @@ Once registered, Claude or other tools can access the API via:
 
 ---
 
+## ? Bootstrap Instructions (PowerShell + Bash)
+
+To launch the MCP Memory Palace module in a safe and reproducible way:
+
+---
+
+### ? PowerShell (Windows)
+
+```powershell
+irm https://raw.githubusercontent.com/data-mint-research/mcp-memory-palace/main/bootstrap.ps1 | iex
+```
+
+* Clones the repo if needed
+* Builds the Docker image
+* Starts the container **only if not already running**
+* All memory is stored in `./brain.fs/`, mounted via `-v`
+
+### ? Bash/macOS/Linux
+
+```bash
+bash <(curl -s https://raw.githubusercontent.com/data-mint-research/mcp-memory-palace/main/bootstrap.sh)
+```
+
+* Same behavior as above
+* Keeps memory persistent across container restarts
+
+### ? Data Safety
+
+All memory, state and audit logs are stored in:
+
+```
+./brain.fs/
+??? memory/
+??? audit/
+??? index/
+??? state.json
+```
+
+As long as this directory is mounted (via `-v`), data will not be lost ? even if the container is removed or restarted.
+
+### ? Optional Manual Start
+
+You can also start or restart the container manually:
+
+```bash
+docker start memory-palace
+docker stop memory-palace
+```
+
+To clean up:
+
+```bash
+docker rm memory-palace
+```
+
+Be aware: this only deletes the container, **not** the memory.
+
+---
+
 ## Legal
 
 - Author: skr  
