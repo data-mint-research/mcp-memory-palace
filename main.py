@@ -1,12 +1,12 @@
 """ main.py ? FastAPI dispatcher for the memory-palace module """
 
 from fastapi import FastAPI
-from .observe import observe
-from .memorize import memorize
-from .recall import recall
-from .suggest import suggest
-from .cortex import update_focus, add_thread
-from .plasticity import trigger_plasticity
+from observe import observe
+from memorize import memorize
+from recall import recall
+from suggest import suggest
+from cortex import update_focus, add_thread
+from plasticity import trigger_plasticity
 
 app = FastAPI()
 
