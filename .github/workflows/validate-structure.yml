@@ -1,0 +1,154 @@
+name: Repository Structure Validation
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate-structure:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Validate Repository Structure
+      run: |
+        echo "Validating MINT-MCP repository structure..."
+        
+        # Check required root files
+        required_files=(
+          "README.md"
+          "run.ps1"
+          "docker-compose.yml"
+          ".env.example"
+          ".gitignore"
+          ".editorconfig"
+        )
+        
+        for file in "${required_files[@]}"; do
+          if [[ ! -f "$file" ]]; then
+            echo "? Missing required file: $file"
+            exit 1
+          else
+            echo "? Found: $file"
+          fi
+        done
+        
+        # Check required directories
+        required_dirs=(
+          "docs"
+          ".github/workflows"
+          ".github/ISSUE_TEMPLATE"
+          ".well-known"
+          "servers"
+        )
+        
+        for dir in "${required_dirs[@]}"; do
+          if [[ ! -d "$dir" ]]; then
+            echo "? Missing required directory: $dir"
+            exit 1
+          else
+            echo "? Found: $dir"
+          fi
+        done
+        
+        # Check forbidden files in root
+        forbidden_files=(
+          "bootstrap.ps1"
+          "setup.ps1"
+          ".vscode"
+          ".idea"
+        )
+        
+        for file in "${forbidden_files[@]}"; do
+          if [[ -e "$file" ]]; then
+            echo "? Forbidden file/directory in root: $file"
+            exit 1
+          fi
+        done
+        
+        echo "? Repository structure validation passed"
+
+  validate-documentation:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Install markdownlint
+      run: npm install -g markdownlint-cli
+    
+    - name: Validate Markdown Files
+      run: |
+        echo "Validating markdown documentation..."
+        markdownlint docs/ README.md servers/*/README.md || true
+        echo "? Markdown validation completed"
+
+  validate-metadata:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Validate File Headers
+      run: |
+        echo "Validating file headers..."
+        
+        # Check Python files have proper headers
+        python_files=$(find . -name "*.py" -not -path "./.git/*" -not -path "./.*" || true)
+        for file in $python_files; do
+          if ! grep -q "Author:.*skr" "$file" 2>/dev/null; then
+            echo "??  Missing or invalid header in: $file"
+          fi
+        done
+        
+        # Check PowerShell files have proper headers
+        ps_files=$(find . -name "*.ps1" -not -path "./.git/*" || true)
+        for file in $ps_files; do
+          if ! grep -q "Author:.*skr" "$file" 2>/dev/null; then
+            echo "??  Missing or invalid header in: $file"
+          fi
+        done
+        
+        echo "? File headers validation completed"
+    
+    - name: Validate Well-Known Metadata
+      run: |
+        echo "Validating .well-known metadata..."
+        
+        if [[ -f ".well-known/mint-mcp.json" ]]; then
+          # Validate JSON structure
+          python -m json.tool .well-known/mint-mcp.json > /dev/null
+          echo "? mint-mcp.json is valid JSON"
+        else
+          echo "? Missing .well-known/mint-mcp.json"
+          exit 1
+        fi
+
+  validate-naming-conventions:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Check Naming Conventions
+      run: |
+        echo "Validating naming conventions..."
+        
+        # Check for snake_case in file names
+        invalid_files=$(find . -name "*[A-Z]*" -type f -not -path "./.git/*" -not -path "./.github/*" | grep -E "\.(py|sh|yml|yaml)$" || true)
+        if [[ -n "$invalid_files" ]]; then
+          echo "??  Files not following snake_case convention:"
+          echo "$invalid_files"
+        fi
+        
+        # Check for kebab-case in directories (except .github)
+        invalid_dirs=$(find . -name "*_*" -type d -not -path "./.git/*" -not -path "./.github/*" -not -path "./servers/memory-palace/*" -not -path "./__pycache__/*" || true)
+        if [[ -n "$invalid_dirs" ]]; then
+          echo "??  Directories not following kebab-case convention:"
+          echo "$invalid_dirs"
+        fi
+        
+        echo "? Naming conventions validation completed"
