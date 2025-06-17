@@ -81,3 +81,13 @@ Once registered, Claude or other tools can access the API via:
 
 - `.well-known/mcp-memory-palace.json` describes system capabilities
 - Configuration: `./config/config.yaml`
+
+---
+
+## Legal
+
+- Author: skr  
+- Copyright: NeoMINT GmbH 2025  
+- Owner: MINT-RESEARCH  
+- Contact: mint-research@neomint.com  
+- License: [MIT](./LICENSE)
