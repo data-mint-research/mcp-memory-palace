@@ -1,0 +1,23 @@
+{
+  "security_policy": {
+    "version": "1.0.0",
+    "contact": "mint-research@neomint.com",
+    "security_txt": "https://github.com/data-mint-research/mint-mcp/blob/main/docs/security.md"
+  },
+  "vulnerability_disclosure": {
+    "policy": "responsible",
+    "contact_methods": ["email"],
+    "email": "mint-research@neomint.com",
+    "response_time": "72 hours"
+  },
+  "encryption": {
+    "transport": "TLS 1.3",
+    "oauth_supported": true,
+    "token_authentication": true
+  },
+  "compliance": {
+    "gdpr": true,
+    "data_retention": "configurable",
+    "audit_logging": true
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "project": {
+    "name": "MINT-MCP",
+    "description": "Multi-Server Model Context Protocol Architecture",
+    "version": "2.0.0",
+    "repository": "https://github.com/data-mint-research/mint-mcp",
+    "homepage": "https://github.com/data-mint-research/mint-mcp",
+    "documentation": "https://github.com/data-mint-research/mint-mcp/tree/main/docs"
+  },
+  "legal": {
+    "author": "skr",
+    "copyright": "NeoMINT GmbH 2025",
+    "owner": "MINT-RESEARCH",
+    "contact": "mint-research@neomint.com",
+    "license": "MIT"
+  },
+  "servers": [
+    {
+      "name": "memory-palace",
+      "description": "Advanced context-aware memory system",
+      "status": "production",
+      "version": "2.0.0",
+      "path": "servers/memory-palace",
+      "mcp_version": "2025-04-04",
+      "transport": ["stdio", "sse"],
+      "tools": [
+        "memory_observe",
+        "memory_recall", 
+        "memory_focus",
+        "memory_thread",
+        "memory_plasticity"
+      ]
+    },
+    {
+      "name": "mint-registrar",
+      "description": "Git-based MCP server orchestration",
+      "status": "planned",
+      "version": "0.0.0",
+      "path": "servers/mint-registrar"
+    },
+    {
+      "name": "template-server",
+      "description": "Template system for rapid server development",
+      "status": "planned", 
+      "version": "0.0.0",
+      "path": "servers/template-server"
+    }
+  ],
+  "deployment": {
+    "methods": ["powershell", "docker", "manual"],
+    "platforms": ["windows", "linux", "macos"],
+    "requirements": {
+      "python": ">=3.10",
+      "docker": ">=20.10",
+      "git": ">=2.30"
+    }
+  },
+  "support": {
+    "issues": "https://github.com/data-mint-research/mint-mcp/issues",
+    "documentation": "https://github.com/data-mint-research/mint-mcp/tree/main/docs",
+    "contact": "mint-research@neomint.com"
+  }
+}
