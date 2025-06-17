@@ -1,0 +1,20 @@
+{
+  "name": "MCP Memory Palace",
+  "version": "0.2.0",
+  "description": "Modular memory interface for context-aware agents. Portable, auditable, and semantically organized.",
+  "entrypoints": {
+    "observe": "/observe",
+    "memorize": "/memorize",
+    "recall": "/recall",
+    "suggest": "/suggest",
+    "focus": "/focus",
+    "thread": "/thread",
+    "plasticity": "/plasticity"
+  },
+  "languages": ["en", "de"],
+  "focus_management": true,
+  "adaptive_structures": true,
+  "license": "MIT",
+  "author": "Sebastian Kr?smann",
+  "mcp_compliance": true
+}
