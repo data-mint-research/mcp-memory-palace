@@ -8,5 +8,6 @@ if (-not (Test-Path $folder)) {
 }
 
 Set-Location $folder
-docker build -t memory-palace .
+git pull origin main
+docker build --no-cache -t memory-palace .
 docker run -p 8080:8080 -v "${PWD}/brain.fs:/app/brain.fs" memory-palace
