@@ -1,0 +1,41 @@
+# ==============================================================================
+# File:             docker-compose.yml
+# Purpose:          Docker Compose configuration for Memory Palace
+# Author:           skr
+# Owner:            MINT-RESEARCH / NeoMINT GmbH
+# Contact:          mint-research@neomint.com
+# License:          MIT / ? NeoMINT GmbH 2025
+# Created:          2025-06-17
+# Last Modified:    2025-06-17 by skr
+# Status:           Stable
+# Tags:             docker, compose, memory-palace
+# ==============================================================================
+
+version: '3.8'
+
+services:
+  memory-palace:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    image: mint-mcp/memory-palace:latest
+    container_name: mint-memory-palace
+    restart: unless-stopped
+    environment:
+      - MEMORY_PATH=/data/brain.json
+    volumes:
+      - memory-data:/data
+    networks:
+      - mint-mcp
+    labels:
+      - "com.neomint.service=memory-palace"
+      - "com.neomint.version=2.0.0"
+
+volumes:
+  memory-data:
+    name: mint-memory-palace-data
+
+networks:
+  mint-mcp:
+    name: mint-mcp-network
+    driver: bridge
