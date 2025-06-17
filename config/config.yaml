@@ -1,0 +1,5 @@
+# config.yaml ? Runtime configuration for MCP Memory Palace
+
+relevance_threshold: 0.7
+memory_path: "./brain.fs/memory/"
+audit_path: "./brain.fs/audit/"
