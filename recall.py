@@ -2,7 +2,7 @@
 
 import os
 import json
-from .config import get_config
+from config import get_config
 
 def recall(topic: str):
     config = get_config()
