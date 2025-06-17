@@ -3,8 +3,8 @@
 import os
 import json
 from datetime import datetime
-from .config import get_config
-from .utils import write_audit_log, ensure_dir
+from config import get_config
+from utils import write_audit_log, ensure_dir
 
 def trigger_plasticity(reason: str, structure_hint: str = "topic-cluster") -> dict:
     """
