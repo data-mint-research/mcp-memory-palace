@@ -1,0 +1,88 @@
+# ==============================================================================
+# File:             docker-compose.yml
+# Purpose:          Root-level Docker Compose for MINT-MCP ecosystem
+# Author:           skr
+# Owner:            MINT-RESEARCH / NeoMINT GmbH
+# Contact:          mint-research@neomint.com
+# License:          MIT / ? NeoMINT GmbH 2025
+# Created:          2025-06-17
+# Last Modified:    2025-06-17 by skr
+# Status:           Stable
+# Tags:             docker, compose, orchestration, mint-mcp
+# ==============================================================================
+
+version: '3.8'
+
+services:
+  # Memory Palace - Production Ready
+  memory-palace:
+    build:
+      context: ./servers/memory-palace
+      dockerfile: docker/Dockerfile
+    image: mint-mcp/memory-palace:latest
+    container_name: mint-memory-palace
+    restart: unless-stopped
+    environment:
+      - MEMORY_PATH=/data/brain.json
+      - LOG_LEVEL=${MEMORY_PALACE_LOG_LEVEL:-INFO}
+    volumes:
+      - memory-data:/data
+      - ./logs/memory-palace:/app/logs
+    networks:
+      - mint-mcp
+    ports:
+      - "${MEMORY_PALACE_PORT:-8001}:8001"
+    labels:
+      - "com.neomint.service=memory-palace"
+      - "com.neomint.version=2.0.0"
+      - "com.neomint.status=production"
+
+  # MINT Registrar - Coming Soon
+  # mint-registrar:
+  #   build:
+  #     context: ./servers/mint-registrar
+  #     dockerfile: docker/Dockerfile
+  #   image: mint-mcp/mint-registrar:latest
+  #   container_name: mint-registrar
+  #   restart: unless-stopped
+  #   environment:
+  #     - GIT_PATH=/data/repositories
+  #   volumes:
+  #     - registrar-data:/data
+  #   networks:
+  #     - mint-mcp
+  #   ports:
+  #     - "${MINT_REGISTRAR_PORT:-8002}:8002"
+
+  # Template Server - Coming Soon
+  # template-server:
+  #   build:
+  #     context: ./servers/template-server
+  #     dockerfile: docker/Dockerfile
+  #   image: mint-mcp/template-server:latest
+  #   container_name: mint-template-server
+  #   restart: unless-stopped
+  #   environment:
+  #     - TEMPLATES_PATH=/data/templates
+  #   volumes:
+  #     - template-data:/data
+  #   networks:
+  #     - mint-mcp
+  #   ports:
+  #     - "${TEMPLATE_SERVER_PORT:-8003}:8003"
+
+volumes:
+  memory-data:
+    name: mint-memory-palace-data
+  # registrar-data:
+  #   name: mint-registrar-data
+  # template-data:
+  #   name: mint-template-data
+
+networks:
+  mint-mcp:
+    name: mint-mcp-network
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16
